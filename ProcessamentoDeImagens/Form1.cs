@@ -1422,6 +1422,564 @@ namespace ProcessamentoDeImagens
             }
             pictureBox3.Image = img3;
         }
+
+        private void btMediana_Click(object sender, EventArgs e)
+        {
+            byte[,] imagem3;
+            img3 = new Bitmap(img1.Width, img1.Height);
+
+            imagem3 = new byte[img1.Width, img1.Height];
+
+            if (rb3x3.Checked)
+            {
+                for (int i = 1; i < (img1.Width - 1); i++)
+                {
+                    for (int j = 1; j < (img1.Height - 1); j++)
+                    {
+                        byte[] mask = new byte[9];
+                        int mediana = 0;
+
+                        for (int w = 0; w < mask.Length; w++) mask[w] = 1;
+
+                        mask[0] = (byte)(mask[0] * vImg1Gray[i - 1, j - 1]);
+                        mask[1] = (byte)(mask[1] * vImg1Gray[i - 1, j]);
+                        mask[2] = (byte)(mask[2] * vImg1Gray[i - 1, j + 1]);
+
+                        mask[3] = (byte)(mask[3] * vImg1Gray[i, j - 1]);
+                        mask[4] = (byte)(mask[4] * vImg1Gray[i, j]);
+                        mask[5] = (byte)(mask[5] * vImg1Gray[i, j + 1]);
+
+                        mask[6] = (byte)(mask[6] * vImg1Gray[i + 1, j - 1]);
+                        mask[7] = (byte)(mask[7] * vImg1Gray[i + 1, j]);
+                        mask[8] = (byte)(mask[8] * vImg1Gray[i + 1, j + 1]);
+
+                        Array.Sort(mask);
+
+                        mediana = mask[4];
+
+                        imagem3[i, j] = Convert.ToByte(mediana);
+                    }
+                }
+            }
+            if (rb5x5.Checked)
+            {
+                for (int i = 2; i < (img1.Width - 2); i++)
+                {
+                    for (int j = 2; j < (img1.Height - 2); j++)
+                    {
+                        byte[] mask = new byte[25];
+                        int mediana = 0;
+
+                        for (int w = 0; w < mask.Length; w++) mask[w] = 1;
+
+                        mask[0] = (byte)(mask[0] * vImg1Gray[i - 2, j - 2]);
+                        mask[1] = (byte)(mask[1] * vImg1Gray[i - 2, j - 1]);
+                        mask[2] = (byte)(mask[2] * vImg1Gray[i - 2, j]);
+                        mask[3] = (byte)(mask[3] * vImg1Gray[i - 2, j + 1]);
+                        mask[4] = (byte)(mask[4] * vImg1Gray[i - 2, j + 2]);
+
+                        mask[5] = (byte)(mask[5] * vImg1Gray[i - 1, j - 2]);
+                        mask[6] = (byte)(mask[6] * vImg1Gray[i - 1, j - 1]);
+                        mask[7] = (byte)(mask[7] * vImg1Gray[i - 1, j]);
+                        mask[8] = (byte)(mask[8] * vImg1Gray[i - 1, j + 1]);
+                        mask[9] = (byte)(mask[9] * vImg1Gray[i - 1, j + 2]);
+
+                        mask[10] = (byte)(mask[10] * vImg1Gray[i, j - 2]);
+                        mask[11] = (byte)(mask[11] * vImg1Gray[i, j - 1]);
+                        mask[12] = (byte)(mask[12] * vImg1Gray[i, j]);
+                        mask[13] = (byte)(mask[13] * vImg1Gray[i, j + 1]);
+                        mask[14] = (byte)(mask[14] * vImg1Gray[i, j + 2]);
+
+                        mask[15] = (byte)(mask[15] * vImg1Gray[i + 1, j - 2]);
+                        mask[16] = (byte)(mask[16] * vImg1Gray[i + 1, j - 1]);
+                        mask[17] = (byte)(mask[17] * vImg1Gray[i + 1, j]);
+                        mask[18] = (byte)(mask[18] * vImg1Gray[i + 1, j + 1]);
+                        mask[19] = (byte)(mask[19] * vImg1Gray[i + 1, j + 2]);
+
+                        mask[20] = (byte)(mask[20] * vImg1Gray[i + 2, j - 2]);
+                        mask[21] = (byte)(mask[21] * vImg1Gray[i + 2, j - 1]);
+                        mask[22] = (byte)(mask[22] * vImg1Gray[i + 2, j]);
+                        mask[23] = (byte)(mask[23] * vImg1Gray[i + 2, j + 1]);
+                        mask[24] = (byte)(mask[24] * vImg1Gray[i + 2, j + 2]);
+
+                        Array.Sort(mask);
+
+                        mediana = mask[12];
+
+                        imagem3[i, j] = Convert.ToByte(mediana);
+                    }
+                }
+            }
+
+            if (rb7x7.Checked)
+            {
+                for (int i = 3; i < (img1.Width - 3); i++)
+                {
+                    for (int j = 3; j < (img1.Height - 3); j++)
+                    {
+                        byte[] mask = new byte[49];
+                        int mediana = 0;
+
+                        for (int w = 0; w < mask.Length; w++) mask[w] = 1;
+
+                        mask[0] = (byte)(mask[0] * vImg1Gray[i - 3, j - 3]);
+                        mask[1] = (byte)(mask[1] * vImg1Gray[i - 3, j - 2]);
+                        mask[2] = (byte)(mask[2] * vImg1Gray[i - 3, j - 1]);
+                        mask[3] = (byte)(mask[3] * vImg1Gray[i - 3, j]);
+                        mask[4] = (byte)(mask[4] * vImg1Gray[i - 3, j + 1]);
+                        mask[5] = (byte)(mask[5] * vImg1Gray[i - 3, j + 2]);
+                        mask[6] = (byte)(mask[6] * vImg1Gray[i - 3, j + 3]);
+
+                        mask[7] = (byte)(mask[7] * vImg1Gray[i - 2, j - 3]);
+                        mask[8] = (byte)(mask[8] * vImg1Gray[i - 2, j - 2]);
+                        mask[9] = (byte)(mask[9] * vImg1Gray[i - 2, j - 1]);
+                        mask[10] = (byte)(mask[10] * vImg1Gray[i - 2, j]);
+                        mask[11] = (byte)(mask[11] * vImg1Gray[i - 2, j + 1]);
+                        mask[12] = (byte)(mask[12] * vImg1Gray[i - 2, j + 2]);
+                        mask[13] = (byte)(mask[13] * vImg1Gray[i - 2, j + 3]);
+
+                        mask[14] = (byte)(mask[14] * vImg1Gray[i - 1, j - 3]);
+                        mask[15] = (byte)(mask[15] * vImg1Gray[i - 1, j - 2]);
+                        mask[16] = (byte)(mask[16] * vImg1Gray[i - 1, j - 1]);
+                        mask[17] = (byte)(mask[17] * vImg1Gray[i - 1, j]);
+                        mask[18] = (byte)(mask[18] * vImg1Gray[i - 1, j + 1]);
+                        mask[19] = (byte)(mask[19] * vImg1Gray[i - 1, j + 2]);
+                        mask[20] = (byte)(mask[20] * vImg1Gray[i - 1, j + 3]);
+
+                        mask[21] = (byte)(mask[21] * vImg1Gray[i, j - 3]);
+                        mask[22] = (byte)(mask[22] * vImg1Gray[i, j - 2]);
+                        mask[23] = (byte)(mask[23] * vImg1Gray[i, j - 1]);
+                        mask[24] = (byte)(mask[24] * vImg1Gray[i, j]);
+                        mask[25] = (byte)(mask[25] * vImg1Gray[i, j + 1]);
+                        mask[26] = (byte)(mask[26] * vImg1Gray[i, j + 2]);
+                        mask[27] = (byte)(mask[27] * vImg1Gray[i, j + 3]);
+
+                        mask[28] = (byte)(mask[28] * vImg1Gray[i + 1, j - 3]);
+                        mask[29] = (byte)(mask[29] * vImg1Gray[i + 1, j - 2]);
+                        mask[30] = (byte)(mask[30] * vImg1Gray[i + 1, j - 1]);
+                        mask[31] = (byte)(mask[31] * vImg1Gray[i + 1, j]);
+                        mask[32] = (byte)(mask[32] * vImg1Gray[i + 1, j + 1]);
+                        mask[33] = (byte)(mask[33] * vImg1Gray[i + 1, j + 2]);
+                        mask[34] = (byte)(mask[34] * vImg1Gray[i + 1, j + 3]);
+
+                        mask[35] = (byte)(mask[35] * vImg1Gray[i + 2, j - 3]);
+                        mask[36] = (byte)(mask[36] * vImg1Gray[i + 2, j - 2]);
+                        mask[37] = (byte)(mask[37] * vImg1Gray[i + 2, j - 1]);
+                        mask[38] = (byte)(mask[38] * vImg1Gray[i + 2, j]);
+                        mask[39] = (byte)(mask[39] * vImg1Gray[i + 2, j + 1]);
+                        mask[40] = (byte)(mask[40] * vImg1Gray[i + 2, j + 2]);
+                        mask[41] = (byte)(mask[41] * vImg1Gray[i + 2, j + 3]);
+
+                        mask[42] = (byte)(mask[42] * vImg1Gray[i + 3, j - 3]);
+                        mask[43] = (byte)(mask[43] * vImg1Gray[i + 3, j - 2]);
+                        mask[44] = (byte)(mask[44] * vImg1Gray[i + 3, j - 1]);
+                        mask[45] = (byte)(mask[45] * vImg1Gray[i + 3, j]);
+                        mask[46] = (byte)(mask[46] * vImg1Gray[i + 3, j + 1]);
+                        mask[47] = (byte)(mask[47] * vImg1Gray[i + 3, j + 2]);
+                        mask[48] = (byte)(mask[48] * vImg1Gray[i + 3, j + 3]);
+
+                        Array.Sort(mask);
+
+                        mediana = mask[24];
+
+                        imagem3[i, j] = Convert.ToByte(mediana);
+                    }
+                }
+            }
+
+
+            for (int x = 0; x < img1.Width; x++)
+            {
+                for (int y = 0; y < img1.Height; y++)
+                {
+                    Color c = Color.FromArgb(imagem3[x, y], imagem3[x, y], imagem3[x, y]);
+                    img3.SetPixel(x, y, c);
+                }
+            }
+            pictureBox3.Image = img3;
+        }
+
+        private void btOrdem_Click(object sender, EventArgs e)
+        {
+            byte[,] imagem3;
+            img3 = new Bitmap(img1.Width, img1.Height);
+
+            imagem3 = new byte[img1.Width, img1.Height];
+
+            if (rb3x3.Checked)
+            {
+                for (int i = 1; i < (img1.Width - 1); i++)
+                {
+                    for (int j = 1; j < (img1.Height - 1); j++)
+                    {
+                        byte[] mask = new byte[9];
+                        int mediana = 0;
+
+                        for (int w = 0; w < mask.Length; w++) mask[w] = 1;
+
+                        mask[0] = (byte)(mask[0] * vImg1Gray[i - 1, j - 1]);
+                        mask[1] = (byte)(mask[1] * vImg1Gray[i - 1, j]);
+                        mask[2] = (byte)(mask[2] * vImg1Gray[i - 1, j + 1]);
+
+                        mask[3] = (byte)(mask[3] * vImg1Gray[i, j - 1]);
+                        mask[4] = (byte)(mask[4] * vImg1Gray[i, j]);
+                        mask[5] = (byte)(mask[5] * vImg1Gray[i, j + 1]);
+
+                        mask[6] = (byte)(mask[6] * vImg1Gray[i + 1, j - 1]);
+                        mask[7] = (byte)(mask[7] * vImg1Gray[i + 1, j]);
+                        mask[8] = (byte)(mask[8] * vImg1Gray[i + 1, j + 1]);
+
+                        Array.Sort(mask);
+
+                        mediana = mask[(int)numOrdem.Value];
+
+                        imagem3[i, j] = Convert.ToByte(mediana);
+                    }
+                }
+            }
+            if (rb5x5.Checked)
+            {
+                for (int i = 2; i < (img1.Width - 2); i++)
+                {
+                    for (int j = 2; j < (img1.Height - 2); j++)
+                    {
+                        byte[] mask = new byte[25];
+                        int mediana = 0;
+
+                        for (int w = 0; w < mask.Length; w++) mask[w] = 1;
+
+                        mask[0] = (byte)(mask[0] * vImg1Gray[i - 2, j - 2]);
+                        mask[1] = (byte)(mask[1] * vImg1Gray[i - 2, j - 1]);
+                        mask[2] = (byte)(mask[2] * vImg1Gray[i - 2, j]);
+                        mask[3] = (byte)(mask[3] * vImg1Gray[i - 2, j + 1]);
+                        mask[4] = (byte)(mask[4] * vImg1Gray[i - 2, j + 2]);
+
+                        mask[5] = (byte)(mask[5] * vImg1Gray[i - 1, j - 2]);
+                        mask[6] = (byte)(mask[6] * vImg1Gray[i - 1, j - 1]);
+                        mask[7] = (byte)(mask[7] * vImg1Gray[i - 1, j]);
+                        mask[8] = (byte)(mask[8] * vImg1Gray[i - 1, j + 1]);
+                        mask[9] = (byte)(mask[9] * vImg1Gray[i - 1, j + 2]);
+
+                        mask[10] = (byte)(mask[10] * vImg1Gray[i, j - 2]);
+                        mask[11] = (byte)(mask[11] * vImg1Gray[i, j - 1]);
+                        mask[12] = (byte)(mask[12] * vImg1Gray[i, j]);
+                        mask[13] = (byte)(mask[13] * vImg1Gray[i, j + 1]);
+                        mask[14] = (byte)(mask[14] * vImg1Gray[i, j + 2]);
+
+                        mask[15] = (byte)(mask[15] * vImg1Gray[i + 1, j - 2]);
+                        mask[16] = (byte)(mask[16] * vImg1Gray[i + 1, j - 1]);
+                        mask[17] = (byte)(mask[17] * vImg1Gray[i + 1, j]);
+                        mask[18] = (byte)(mask[18] * vImg1Gray[i + 1, j + 1]);
+                        mask[19] = (byte)(mask[19] * vImg1Gray[i + 1, j + 2]);
+
+                        mask[20] = (byte)(mask[20] * vImg1Gray[i + 2, j - 2]);
+                        mask[21] = (byte)(mask[21] * vImg1Gray[i + 2, j - 1]);
+                        mask[22] = (byte)(mask[22] * vImg1Gray[i + 2, j]);
+                        mask[23] = (byte)(mask[23] * vImg1Gray[i + 2, j + 1]);
+                        mask[24] = (byte)(mask[24] * vImg1Gray[i + 2, j + 2]);
+
+                        Array.Sort(mask);
+
+                        mediana = mask[(int)numOrdem.Value];
+
+                        imagem3[i, j] = Convert.ToByte(mediana);
+                    }
+                }
+            }
+
+            if (rb7x7.Checked)
+            {
+                for (int i = 3; i < (img1.Width - 3); i++)
+                {
+                    for (int j = 3; j < (img1.Height - 3); j++)
+                    {
+                        byte[] mask = new byte[49];
+                        int mediana = 0;
+
+                        for (int w = 0; w < mask.Length; w++) mask[w] = 1;
+
+                        mask[0] = (byte)(mask[0] * vImg1Gray[i - 3, j - 3]);
+                        mask[1] = (byte)(mask[1] * vImg1Gray[i - 3, j - 2]);
+                        mask[2] = (byte)(mask[2] * vImg1Gray[i - 3, j - 1]);
+                        mask[3] = (byte)(mask[3] * vImg1Gray[i - 3, j]);
+                        mask[4] = (byte)(mask[4] * vImg1Gray[i - 3, j + 1]);
+                        mask[5] = (byte)(mask[5] * vImg1Gray[i - 3, j + 2]);
+                        mask[6] = (byte)(mask[6] * vImg1Gray[i - 3, j + 3]);
+
+                        mask[7] = (byte)(mask[7] * vImg1Gray[i - 2, j - 3]);
+                        mask[8] = (byte)(mask[8] * vImg1Gray[i - 2, j - 2]);
+                        mask[9] = (byte)(mask[9] * vImg1Gray[i - 2, j - 1]);
+                        mask[10] = (byte)(mask[10] * vImg1Gray[i - 2, j]);
+                        mask[11] = (byte)(mask[11] * vImg1Gray[i - 2, j + 1]);
+                        mask[12] = (byte)(mask[12] * vImg1Gray[i - 2, j + 2]);
+                        mask[13] = (byte)(mask[13] * vImg1Gray[i - 2, j + 3]);
+
+                        mask[14] = (byte)(mask[14] * vImg1Gray[i - 1, j - 3]);
+                        mask[15] = (byte)(mask[15] * vImg1Gray[i - 1, j - 2]);
+                        mask[16] = (byte)(mask[16] * vImg1Gray[i - 1, j - 1]);
+                        mask[17] = (byte)(mask[17] * vImg1Gray[i - 1, j]);
+                        mask[18] = (byte)(mask[18] * vImg1Gray[i - 1, j + 1]);
+                        mask[19] = (byte)(mask[19] * vImg1Gray[i - 1, j + 2]);
+                        mask[20] = (byte)(mask[20] * vImg1Gray[i - 1, j + 3]);
+
+                        mask[21] = (byte)(mask[21] * vImg1Gray[i, j - 3]);
+                        mask[22] = (byte)(mask[22] * vImg1Gray[i, j - 2]);
+                        mask[23] = (byte)(mask[23] * vImg1Gray[i, j - 1]);
+                        mask[24] = (byte)(mask[24] * vImg1Gray[i, j]);
+                        mask[25] = (byte)(mask[25] * vImg1Gray[i, j + 1]);
+                        mask[26] = (byte)(mask[26] * vImg1Gray[i, j + 2]);
+                        mask[27] = (byte)(mask[27] * vImg1Gray[i, j + 3]);
+
+                        mask[28] = (byte)(mask[28] * vImg1Gray[i + 1, j - 3]);
+                        mask[29] = (byte)(mask[29] * vImg1Gray[i + 1, j - 2]);
+                        mask[30] = (byte)(mask[30] * vImg1Gray[i + 1, j - 1]);
+                        mask[31] = (byte)(mask[31] * vImg1Gray[i + 1, j]);
+                        mask[32] = (byte)(mask[32] * vImg1Gray[i + 1, j + 1]);
+                        mask[33] = (byte)(mask[33] * vImg1Gray[i + 1, j + 2]);
+                        mask[34] = (byte)(mask[34] * vImg1Gray[i + 1, j + 3]);
+
+                        mask[35] = (byte)(mask[35] * vImg1Gray[i + 2, j - 3]);
+                        mask[36] = (byte)(mask[36] * vImg1Gray[i + 2, j - 2]);
+                        mask[37] = (byte)(mask[37] * vImg1Gray[i + 2, j - 1]);
+                        mask[38] = (byte)(mask[38] * vImg1Gray[i + 2, j]);
+                        mask[39] = (byte)(mask[39] * vImg1Gray[i + 2, j + 1]);
+                        mask[40] = (byte)(mask[40] * vImg1Gray[i + 2, j + 2]);
+                        mask[41] = (byte)(mask[41] * vImg1Gray[i + 2, j + 3]);
+
+                        mask[42] = (byte)(mask[42] * vImg1Gray[i + 3, j - 3]);
+                        mask[43] = (byte)(mask[43] * vImg1Gray[i + 3, j - 2]);
+                        mask[44] = (byte)(mask[44] * vImg1Gray[i + 3, j - 1]);
+                        mask[45] = (byte)(mask[45] * vImg1Gray[i + 3, j]);
+                        mask[46] = (byte)(mask[46] * vImg1Gray[i + 3, j + 1]);
+                        mask[47] = (byte)(mask[47] * vImg1Gray[i + 3, j + 2]);
+                        mask[48] = (byte)(mask[48] * vImg1Gray[i + 3, j + 3]);
+
+                        Array.Sort(mask);
+
+                        mediana = mask[(int)numOrdem.Value];
+
+                        imagem3[i, j] = Convert.ToByte(mediana);
+                    }
+                }
+            }
+
+
+            for (int x = 0; x < img1.Width; x++)
+            {
+                for (int y = 0; y < img1.Height; y++)
+                {
+                    Color c = Color.FromArgb(imagem3[x, y], imagem3[x, y], imagem3[x, y]);
+                    img3.SetPixel(x, y, c);
+                }
+            }
+            pictureBox3.Image = img3;
+        }
+
+        private void btSuavizacao_Click(object sender, EventArgs e)
+        {
+            byte[,] imagem3;
+            img3 = new Bitmap(img1.Width, img1.Height);
+
+            imagem3 = new byte[img1.Width, img1.Height];
+
+            if (rb3x3.Checked)
+            {
+                for (int i = 1; i < (img1.Width - 1); i++)
+                {
+                    for (int j = 1; j < (img1.Height - 1); j++)
+                    {
+                        byte[] mask = new byte[9];
+
+                        for (int w = 0; w < mask.Length; w++) mask[w] = 1;
+
+                        mask[0] = (byte)(mask[0] * vImg1Gray[i - 1, j - 1]);
+                        mask[1] = (byte)(mask[1] * vImg1Gray[i - 1, j]);
+                        mask[2] = (byte)(mask[2] * vImg1Gray[i - 1, j + 1]);
+
+                        mask[3] = (byte)(mask[3] * vImg1Gray[i, j - 1]);
+                        mask[4] = (byte)(mask[4] * vImg1Gray[i, j]);
+                        mask[5] = (byte)(mask[5] * vImg1Gray[i, j + 1]);
+
+                        mask[6] = (byte)(mask[6] * vImg1Gray[i + 1, j - 1]);
+                        mask[7] = (byte)(mask[7] * vImg1Gray[i + 1, j]);
+                        mask[8] = (byte)(mask[8] * vImg1Gray[i + 1, j + 1]);
+
+                        int selected = mask[4];
+
+                        var lista = mask.ToList();
+                        lista.RemoveAt(4);
+                        mask = lista.ToArray();
+
+                        Array.Sort(mask);
+
+                        int min = mask.Min();
+                        int max = mask.Max();
+
+
+                        if(selected > max) selected = max;
+                        else if(selected < min) selected = min;
+
+                        imagem3[i, j] = Convert.ToByte(selected);
+                    }
+                }
+            }
+            if (rb5x5.Checked)
+            {
+                for (int i = 2; i < (img1.Width - 2); i++)
+                {
+                    for (int j = 2; j < (img1.Height - 2); j++)
+                    {
+                        byte[] mask = new byte[25];
+
+                        for (int w = 0; w < mask.Length; w++) mask[w] = 1;
+
+                        mask[0] = (byte)(mask[0] * vImg1Gray[i - 2, j - 2]);
+                        mask[1] = (byte)(mask[1] * vImg1Gray[i - 2, j - 1]);
+                        mask[2] = (byte)(mask[2] * vImg1Gray[i - 2, j]);
+                        mask[3] = (byte)(mask[3] * vImg1Gray[i - 2, j + 1]);
+                        mask[4] = (byte)(mask[4] * vImg1Gray[i - 2, j + 2]);
+
+                        mask[5] = (byte)(mask[5] * vImg1Gray[i - 1, j - 2]);
+                        mask[6] = (byte)(mask[6] * vImg1Gray[i - 1, j - 1]);
+                        mask[7] = (byte)(mask[7] * vImg1Gray[i - 1, j]);
+                        mask[8] = (byte)(mask[8] * vImg1Gray[i - 1, j + 1]);
+                        mask[9] = (byte)(mask[9] * vImg1Gray[i - 1, j + 2]);
+
+                        mask[10] = (byte)(mask[10] * vImg1Gray[i, j - 2]);
+                        mask[11] = (byte)(mask[11] * vImg1Gray[i, j - 1]);
+                        mask[12] = (byte)(mask[12] * vImg1Gray[i, j]);
+                        mask[13] = (byte)(mask[13] * vImg1Gray[i, j + 1]);
+                        mask[14] = (byte)(mask[14] * vImg1Gray[i, j + 2]);
+
+                        mask[15] = (byte)(mask[15] * vImg1Gray[i + 1, j - 2]);
+                        mask[16] = (byte)(mask[16] * vImg1Gray[i + 1, j - 1]);
+                        mask[17] = (byte)(mask[17] * vImg1Gray[i + 1, j]);
+                        mask[18] = (byte)(mask[18] * vImg1Gray[i + 1, j + 1]);
+                        mask[19] = (byte)(mask[19] * vImg1Gray[i + 1, j + 2]);
+
+                        mask[20] = (byte)(mask[20] * vImg1Gray[i + 2, j - 2]);
+                        mask[21] = (byte)(mask[21] * vImg1Gray[i + 2, j - 1]);
+                        mask[22] = (byte)(mask[22] * vImg1Gray[i + 2, j]);
+                        mask[23] = (byte)(mask[23] * vImg1Gray[i + 2, j + 1]);
+                        mask[24] = (byte)(mask[24] * vImg1Gray[i + 2, j + 2]);
+
+                        int selected = mask[12];
+
+                        var lista = mask.ToList();
+                        lista.RemoveAt(12);
+                        mask = lista.ToArray();
+
+                        Array.Sort(mask);
+
+                        int min = mask.Min();
+                        int max = mask.Max();
+
+
+                        if (selected > max) selected = max;
+                        else if (selected < min) selected = min;
+
+                        imagem3[i, j] = Convert.ToByte(selected);
+                    }
+                }
+            }
+
+            if (rb7x7.Checked)
+            {
+                for (int i = 3; i < (img1.Width - 3); i++)
+                {
+                    for (int j = 3; j < (img1.Height - 3); j++)
+                    {
+                        byte[] mask = new byte[49];
+
+                        for (int w = 0; w < mask.Length; w++) mask[w] = 1;
+
+                        mask[0] = (byte)(mask[0] * vImg1Gray[i - 3, j - 3]);
+                        mask[1] = (byte)(mask[1] * vImg1Gray[i - 3, j - 2]);
+                        mask[2] = (byte)(mask[2] * vImg1Gray[i - 3, j - 1]);
+                        mask[3] = (byte)(mask[3] * vImg1Gray[i - 3, j]);
+                        mask[4] = (byte)(mask[4] * vImg1Gray[i - 3, j + 1]);
+                        mask[5] = (byte)(mask[5] * vImg1Gray[i - 3, j + 2]);
+                        mask[6] = (byte)(mask[6] * vImg1Gray[i - 3, j + 3]);
+
+                        mask[7] = (byte)(mask[7] * vImg1Gray[i - 2, j - 3]);
+                        mask[8] = (byte)(mask[8] * vImg1Gray[i - 2, j - 2]);
+                        mask[9] = (byte)(mask[9] * vImg1Gray[i - 2, j - 1]);
+                        mask[10] = (byte)(mask[10] * vImg1Gray[i - 2, j]);
+                        mask[11] = (byte)(mask[11] * vImg1Gray[i - 2, j + 1]);
+                        mask[12] = (byte)(mask[12] * vImg1Gray[i - 2, j + 2]);
+                        mask[13] = (byte)(mask[13] * vImg1Gray[i - 2, j + 3]);
+
+                        mask[14] = (byte)(mask[14] * vImg1Gray[i - 1, j - 3]);
+                        mask[15] = (byte)(mask[15] * vImg1Gray[i - 1, j - 2]);
+                        mask[16] = (byte)(mask[16] * vImg1Gray[i - 1, j - 1]);
+                        mask[17] = (byte)(mask[17] * vImg1Gray[i - 1, j]);
+                        mask[18] = (byte)(mask[18] * vImg1Gray[i - 1, j + 1]);
+                        mask[19] = (byte)(mask[19] * vImg1Gray[i - 1, j + 2]);
+                        mask[20] = (byte)(mask[20] * vImg1Gray[i - 1, j + 3]);
+
+                        mask[21] = (byte)(mask[21] * vImg1Gray[i, j - 3]);
+                        mask[22] = (byte)(mask[22] * vImg1Gray[i, j - 2]);
+                        mask[23] = (byte)(mask[23] * vImg1Gray[i, j - 1]);
+                        mask[24] = (byte)(mask[24] * vImg1Gray[i, j]);
+                        mask[25] = (byte)(mask[25] * vImg1Gray[i, j + 1]);
+                        mask[26] = (byte)(mask[26] * vImg1Gray[i, j + 2]);
+                        mask[27] = (byte)(mask[27] * vImg1Gray[i, j + 3]);
+
+                        mask[28] = (byte)(mask[28] * vImg1Gray[i + 1, j - 3]);
+                        mask[29] = (byte)(mask[29] * vImg1Gray[i + 1, j - 2]);
+                        mask[30] = (byte)(mask[30] * vImg1Gray[i + 1, j - 1]);
+                        mask[31] = (byte)(mask[31] * vImg1Gray[i + 1, j]);
+                        mask[32] = (byte)(mask[32] * vImg1Gray[i + 1, j + 1]);
+                        mask[33] = (byte)(mask[33] * vImg1Gray[i + 1, j + 2]);
+                        mask[34] = (byte)(mask[34] * vImg1Gray[i + 1, j + 3]);
+
+                        mask[35] = (byte)(mask[35] * vImg1Gray[i + 2, j - 3]);
+                        mask[36] = (byte)(mask[36] * vImg1Gray[i + 2, j - 2]);
+                        mask[37] = (byte)(mask[37] * vImg1Gray[i + 2, j - 1]);
+                        mask[38] = (byte)(mask[38] * vImg1Gray[i + 2, j]);
+                        mask[39] = (byte)(mask[39] * vImg1Gray[i + 2, j + 1]);
+                        mask[40] = (byte)(mask[40] * vImg1Gray[i + 2, j + 2]);
+                        mask[41] = (byte)(mask[41] * vImg1Gray[i + 2, j + 3]);
+
+                        mask[42] = (byte)(mask[42] * vImg1Gray[i + 3, j - 3]);
+                        mask[43] = (byte)(mask[43] * vImg1Gray[i + 3, j - 2]);
+                        mask[44] = (byte)(mask[44] * vImg1Gray[i + 3, j - 1]);
+                        mask[45] = (byte)(mask[45] * vImg1Gray[i + 3, j]);
+                        mask[46] = (byte)(mask[46] * vImg1Gray[i + 3, j + 1]);
+                        mask[47] = (byte)(mask[47] * vImg1Gray[i + 3, j + 2]);
+                        mask[48] = (byte)(mask[48] * vImg1Gray[i + 3, j + 3]);
+
+                        int selected = mask[24];
+
+                        var lista = mask.ToList();
+                        lista.RemoveAt(24);
+                        mask = lista.ToArray();
+
+                        Array.Sort(mask);
+
+                        int min = mask.Min();
+                        int max = mask.Max();
+
+
+                        if (selected > max) selected = max;
+                        else if (selected < min) selected = min;
+
+                        imagem3[i, j] = Convert.ToByte(selected);
+                    }
+                }
+            }
+
+
+            for (int x = 0; x < img1.Width; x++)
+            {
+                for (int y = 0; y < img1.Height; y++)
+                {
+                    Color c = Color.FromArgb(imagem3[x, y], imagem3[x, y], imagem3[x, y]);
+                    img3.SetPixel(x, y, c);
+                }
+            }
+            pictureBox3.Image = img3;
+        }
     }
 
 }
