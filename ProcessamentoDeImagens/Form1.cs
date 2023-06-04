@@ -592,168 +592,6 @@ namespace ProcessamentoDeImagens
             }
         }
 
-        private void btExer9_Click(object sender, EventArgs e)
-        {
-            int[,] imagem3;
-
-            imagem3 = new int[(img1.Width * 2), img1.Height];
-
-            for (int i = 0; i < (img1.Width * 2); i++)
-            {
-                int aux = (Convert.ToInt32(img1.Width) * 2);
-                bool bAux = false;
-
-                if(i >= img1.Width) bAux = true;
-
-                for (int j = 0; j < img1.Height; j++)
-                {
-                    byte pixel;
-
-                    if (bAux) {
-                        pixel = vImg1Gray[Math.Abs(aux - i-1), j];
-                    }
-                    else pixel = vImg1Gray[i, j];
-
-                    imagem3[i, j] = pixel;
-                }
-            }
-
-
-            img3 = new Bitmap(img1.Width * 2, img1.Height);
-
-            for (int x = 0; x < img1.Width * 2; x++)
-            {
-                for (int y = 0; y < img1.Height; y++)
-                {
-                    Color c = Color.FromArgb(imagem3[x, y], imagem3[x, y], imagem3[x, y]);
-                    img3.SetPixel(x, y, c);
-                }
-            }
-
-            pictureBox3.Image = img3;
-        }
-
-        private void brExer7_Click(object sender, EventArgs e)
-        {
-            int[,] matriz1;
-            matriz1 = new int[3, 3];
-
-            int[,] matriz2;
-            matriz2 = new int[3, 3];
-
-            int[,] matrizAux;
-            matrizAux = new int[3, 3];
-
-            int[,] saida1;
-            saida1 = new int[3, 3];
-
-            int[,] saida2;
-            saida2 = new int[3, 3];
-
-            Random randNum = new Random();
-
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
-                {
-                    int num;
-
-                    num = randNum.Next(0, 255);
-
-                    matriz1[i, j] = num;
-                }
-            }
-
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
-                {
-                    int pixel;
-
-                    pixel = randNum.Next(0, 255);
-
-                    matriz2[i, j] = pixel;
-                }
-            }
-
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
-                {
-                    int num;
-
-                    if (matriz1[i, j] + matriz2[i, j] > 255) num = 255;
-                    else num = matriz1[i, j] + matriz2[i, j];
-
-                    saida1[i, j] = num;
-                }
-            }
-
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
-                {
-                    int num;
-
-                    num = matriz1[i, j] + matriz2[i, j];
-
-                    matrizAux[i, j] = num;
-                }
-            }
-            
-
-            int pxMax = 0;
-            int pxMin = 255;
-
-
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
-                {
-                    int num = matriz1[i, j] + matriz2[i, j];
-
-                    if (num > pxMax) pxMax = num;
-                    if (num < pxMin) pxMin = num;
-                }
-            }
-
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
-                {
-                    int pixel_normalizado;
-
-                    pixel_normalizado = (int)(((double)(matrizAux[i, j] - pxMin) / (pxMax - pxMin)) * 255);
-
-                    saida2[i, j] = pixel_normalizado;
-                }
-            }
-
-            ExibirMatriz(matriz1, label1);
-            ExibirMatriz(matriz2, label2);
-            ExibirMatriz(matrizAux, label3);
-            ExibirMatriz(saida1, label4);
-            ExibirMatriz(saida2, label5);
-
-        }
-
-        private void ExibirMatriz(int[,] matriz, Label label)
-        {
-            string texto = "";
-            int largura = matriz.GetLength(0);
-            int altura = matriz.GetLength(1);
-
-            for (int i = 0; i < largura; i++)
-            {
-                for (int j = 0; j < altura; j++)
-                {
-                    texto += matriz[i, j] + " ";
-                }
-                texto += "\n";
-            }
-
-            label.Text = texto;
-        }
 
         private void RGBtoOneBit_Click(object sender, EventArgs e)
         {
@@ -928,19 +766,7 @@ namespace ProcessamentoDeImagens
                     {
                         byte[] mask = new byte[9];
 
-                        for (int w = 0; w < mask.Length; w++) mask[w] = 1;
-
-                        mask[0] = (byte)(mask[0] * vImg1Gray[i - 1, j - 1]);
-                        mask[1] = (byte)(mask[1] * vImg1Gray[i - 1, j]);
-                        mask[2] = (byte)(mask[2] * vImg1Gray[i - 1, j + 1]);
-
-                        mask[3] = (byte)(mask[3] * vImg1Gray[i, j - 1]);
-                        mask[4] = (byte)(mask[4] * vImg1Gray[i, j]);
-                        mask[5] = (byte)(mask[5] * vImg1Gray[i, j + 1]);
-
-                        mask[6] = (byte)(mask[6] * vImg1Gray[i + 1, j - 1]);
-                        mask[7] = (byte)(mask[7] * vImg1Gray[i + 1, j]);
-                        mask[8] = (byte)(mask[8] * vImg1Gray[i + 1, j + 1]);
+                        mask = mask3x3(mask, vImg1Gray, i, j);
 
                         byte max = mask.Max();
 
@@ -956,37 +782,7 @@ namespace ProcessamentoDeImagens
                     {
                         byte[] mask = new byte[25];
 
-                        for (int w = 0; w < mask.Length; w++) mask[w] = 1;
-
-                        mask[0] = (byte)(mask[0] * vImg1Gray[i - 2, j - 2]);
-                        mask[1] = (byte)(mask[1] * vImg1Gray[i - 2, j - 1]);
-                        mask[2] = (byte)(mask[2] * vImg1Gray[i - 2, j]);
-                        mask[3] = (byte)(mask[3] * vImg1Gray[i - 2, j + 1]);
-                        mask[4] = (byte)(mask[4] * vImg1Gray[i - 2, j + 2]);
-
-                        mask[5] = (byte)(mask[5] * vImg1Gray[i - 1, j - 2]);
-                        mask[6] = (byte)(mask[6] * vImg1Gray[i - 1, j - 1]);
-                        mask[7] = (byte)(mask[7] * vImg1Gray[i - 1, j]);
-                        mask[8] = (byte)(mask[8] * vImg1Gray[i - 1, j + 1]);
-                        mask[9] = (byte)(mask[9] * vImg1Gray[i - 1, j + 2]);
-
-                        mask[10] = (byte)(mask[10] * vImg1Gray[i, j - 2]);
-                        mask[11] = (byte)(mask[11] * vImg1Gray[i, j - 1]);
-                        mask[12] = (byte)(mask[12] * vImg1Gray[i, j]);
-                        mask[13] = (byte)(mask[13] * vImg1Gray[i, j + 1]);
-                        mask[14] = (byte)(mask[14] * vImg1Gray[i, j + 2]);
-
-                        mask[15] = (byte)(mask[15] * vImg1Gray[i + 1, j - 2]);
-                        mask[16] = (byte)(mask[16] * vImg1Gray[i + 1, j - 1]);
-                        mask[17] = (byte)(mask[17] * vImg1Gray[i + 1, j]);
-                        mask[18] = (byte)(mask[18] * vImg1Gray[i + 1, j + 1]);
-                        mask[19] = (byte)(mask[19] * vImg1Gray[i + 1, j + 2]);
-
-                        mask[20] = (byte)(mask[20] * vImg1Gray[i + 2, j - 2]);
-                        mask[21] = (byte)(mask[21] * vImg1Gray[i + 2, j - 1]);
-                        mask[22] = (byte)(mask[22] * vImg1Gray[i + 2, j]);
-                        mask[23] = (byte)(mask[23] * vImg1Gray[i + 2, j + 1]);
-                        mask[24] = (byte)(mask[24] * vImg1Gray[i + 2, j + 2]);
+                        mask = mask5x5(mask, vImg1Gray, i, j);
 
                         byte max = mask.Max();
 
@@ -1039,19 +835,7 @@ namespace ProcessamentoDeImagens
                     {
                         byte[] mask = new byte[9];
 
-                        for (int w = 0; w < mask.Length; w++) mask[w] = 1;
-
-                        mask[0] = (byte)(mask[0] * vImg1Gray[i - 1, j - 1]);
-                        mask[1] = (byte)(mask[1] * vImg1Gray[i - 1, j]);
-                        mask[2] = (byte)(mask[2] * vImg1Gray[i - 1, j + 1]);
-
-                        mask[3] = (byte)(mask[3] * vImg1Gray[i, j - 1]);
-                        mask[4] = (byte)(mask[4] * vImg1Gray[i, j]);
-                        mask[5] = (byte)(mask[5] * vImg1Gray[i, j + 1]);
-
-                        mask[6] = (byte)(mask[6] * vImg1Gray[i + 1, j - 1]);
-                        mask[7] = (byte)(mask[7] * vImg1Gray[i + 1, j]);
-                        mask[8] = (byte)(mask[8] * vImg1Gray[i + 1, j + 1]);
+                        mask = mask3x3(mask, vImg1Gray, i, j);
 
                         byte min = mask.Min();
 
@@ -1067,37 +851,7 @@ namespace ProcessamentoDeImagens
                     {
                         byte[] mask = new byte[25];
 
-                        for (int w = 0; w < mask.Length; w++) mask[w] = 1;
-
-                        mask[0] = (byte)(mask[0] * vImg1Gray[i - 2, j - 2]);
-                        mask[1] = (byte)(mask[1] * vImg1Gray[i - 2, j - 1]);
-                        mask[2] = (byte)(mask[2] * vImg1Gray[i - 2, j]);
-                        mask[3] = (byte)(mask[3] * vImg1Gray[i - 2, j + 1]);
-                        mask[4] = (byte)(mask[4] * vImg1Gray[i - 2, j + 2]);
-
-                        mask[5] = (byte)(mask[5] * vImg1Gray[i - 1, j - 2]);
-                        mask[6] = (byte)(mask[6] * vImg1Gray[i - 1, j - 1]);
-                        mask[7] = (byte)(mask[7] * vImg1Gray[i - 1, j]);
-                        mask[8] = (byte)(mask[8] * vImg1Gray[i - 1, j + 1]);
-                        mask[9] = (byte)(mask[9] * vImg1Gray[i - 1, j + 2]);
-
-                        mask[10] = (byte)(mask[10] * vImg1Gray[i, j - 2]);
-                        mask[11] = (byte)(mask[11] * vImg1Gray[i, j - 1]);
-                        mask[12] = (byte)(mask[12] * vImg1Gray[i, j]);
-                        mask[13] = (byte)(mask[13] * vImg1Gray[i, j + 1]);
-                        mask[14] = (byte)(mask[14] * vImg1Gray[i, j + 2]);
-
-                        mask[15] = (byte)(mask[15] * vImg1Gray[i + 1, j - 2]);
-                        mask[16] = (byte)(mask[16] * vImg1Gray[i + 1, j - 1]);
-                        mask[17] = (byte)(mask[17] * vImg1Gray[i + 1, j]);
-                        mask[18] = (byte)(mask[18] * vImg1Gray[i + 1, j + 1]);
-                        mask[19] = (byte)(mask[19] * vImg1Gray[i + 1, j + 2]);
-
-                        mask[20] = (byte)(mask[20] * vImg1Gray[i + 2, j - 2]);
-                        mask[21] = (byte)(mask[21] * vImg1Gray[i + 2, j - 1]);
-                        mask[22] = (byte)(mask[22] * vImg1Gray[i + 2, j]);
-                        mask[23] = (byte)(mask[23] * vImg1Gray[i + 2, j + 1]);
-                        mask[24] = (byte)(mask[24] * vImg1Gray[i + 2, j + 2]);
+                        mask = mask5x5(mask, vImg1Gray, i, j);
 
                         byte min = mask.Min();
 
@@ -1151,19 +905,7 @@ namespace ProcessamentoDeImagens
                         byte[] mask = new byte[9];
                         int mean = 0;
 
-                        for (int w = 0; w < mask.Length; w++) mask[w] = 1;
-
-                        mask[0] = (byte)(mask[0] * vImg1Gray[i - 1, j - 1]);
-                        mask[1] = (byte)(mask[1] * vImg1Gray[i - 1, j]);
-                        mask[2] = (byte)(mask[2] * vImg1Gray[i - 1, j + 1]);
-
-                        mask[3] = (byte)(mask[3] * vImg1Gray[i, j - 1]);
-                        mask[4] = (byte)(mask[4] * vImg1Gray[i, j]);
-                        mask[5] = (byte)(mask[5] * vImg1Gray[i, j + 1]);
-
-                        mask[6] = (byte)(mask[6] * vImg1Gray[i + 1, j - 1]);
-                        mask[7] = (byte)(mask[7] * vImg1Gray[i + 1, j]);
-                        mask[8] = (byte)(mask[8] * vImg1Gray[i + 1, j + 1]);
+                        mask = mask3x3(mask, vImg1Gray, i, j);
 
                         for (int w = 0; w < mask.Length; w++) mean = mean + mask[w];
 
@@ -1182,37 +924,7 @@ namespace ProcessamentoDeImagens
                         byte[] mask = new byte[25];
                         int mean = 0;
 
-                        for (int w = 0; w < mask.Length; w++) mask[w] = 1;
-
-                        mask[0] = (byte)(mask[0] * vImg1Gray[i - 2, j - 2]);
-                        mask[1] = (byte)(mask[1] * vImg1Gray[i - 2, j - 1]);
-                        mask[2] = (byte)(mask[2] * vImg1Gray[i - 2, j]);
-                        mask[3] = (byte)(mask[3] * vImg1Gray[i - 2, j + 1]);
-                        mask[4] = (byte)(mask[4] * vImg1Gray[i - 2, j + 2]);
-
-                        mask[5] = (byte)(mask[5] * vImg1Gray[i - 1, j - 2]);
-                        mask[6] = (byte)(mask[6] * vImg1Gray[i - 1, j - 1]);
-                        mask[7] = (byte)(mask[7] * vImg1Gray[i - 1, j]);
-                        mask[8] = (byte)(mask[8] * vImg1Gray[i - 1, j + 1]);
-                        mask[9] = (byte)(mask[9] * vImg1Gray[i - 1, j + 2]);
-
-                        mask[10] = (byte)(mask[10] * vImg1Gray[i, j - 2]);
-                        mask[11] = (byte)(mask[11] * vImg1Gray[i, j - 1]);
-                        mask[12] = (byte)(mask[12] * vImg1Gray[i, j]);
-                        mask[13] = (byte)(mask[13] * vImg1Gray[i, j + 1]);
-                        mask[14] = (byte)(mask[14] * vImg1Gray[i, j + 2]);
-
-                        mask[15] = (byte)(mask[15] * vImg1Gray[i + 1, j - 2]);
-                        mask[16] = (byte)(mask[16] * vImg1Gray[i + 1, j - 1]);
-                        mask[17] = (byte)(mask[17] * vImg1Gray[i + 1, j]);
-                        mask[18] = (byte)(mask[18] * vImg1Gray[i + 1, j + 1]);
-                        mask[19] = (byte)(mask[19] * vImg1Gray[i + 1, j + 2]);
-
-                        mask[20] = (byte)(mask[20] * vImg1Gray[i + 2, j - 2]);
-                        mask[21] = (byte)(mask[21] * vImg1Gray[i + 2, j - 1]);
-                        mask[22] = (byte)(mask[22] * vImg1Gray[i + 2, j]);
-                        mask[23] = (byte)(mask[23] * vImg1Gray[i + 2, j + 1]);
-                        mask[24] = (byte)(mask[24] * vImg1Gray[i + 2, j + 2]);
+                        mask = mask5x5(mask, vImg1Gray, i, j);
 
                         for (int w = 0; w < mask.Length; w++) mean = mean + mask[w];
 
@@ -1271,19 +983,7 @@ namespace ProcessamentoDeImagens
                         byte[] mask = new byte[9];
                         int mediana = 0;
 
-                        for (int w = 0; w < mask.Length; w++) mask[w] = 1;
-
-                        mask[0] = (byte)(mask[0] * vImg1Gray[i - 1, j - 1]);
-                        mask[1] = (byte)(mask[1] * vImg1Gray[i - 1, j]);
-                        mask[2] = (byte)(mask[2] * vImg1Gray[i - 1, j + 1]);
-
-                        mask[3] = (byte)(mask[3] * vImg1Gray[i, j - 1]);
-                        mask[4] = (byte)(mask[4] * vImg1Gray[i, j]);
-                        mask[5] = (byte)(mask[5] * vImg1Gray[i, j + 1]);
-
-                        mask[6] = (byte)(mask[6] * vImg1Gray[i + 1, j - 1]);
-                        mask[7] = (byte)(mask[7] * vImg1Gray[i + 1, j]);
-                        mask[8] = (byte)(mask[8] * vImg1Gray[i + 1, j + 1]);
+                        mask = mask3x3(mask, vImg1Gray, i, j);
 
                         Array.Sort(mask);
 
@@ -1302,37 +1002,7 @@ namespace ProcessamentoDeImagens
                         byte[] mask = new byte[25];
                         int mediana = 0;
 
-                        for (int w = 0; w < mask.Length; w++) mask[w] = 1;
-
-                        mask[0] = (byte)(mask[0] * vImg1Gray[i - 2, j - 2]);
-                        mask[1] = (byte)(mask[1] * vImg1Gray[i - 2, j - 1]);
-                        mask[2] = (byte)(mask[2] * vImg1Gray[i - 2, j]);
-                        mask[3] = (byte)(mask[3] * vImg1Gray[i - 2, j + 1]);
-                        mask[4] = (byte)(mask[4] * vImg1Gray[i - 2, j + 2]);
-
-                        mask[5] = (byte)(mask[5] * vImg1Gray[i - 1, j - 2]);
-                        mask[6] = (byte)(mask[6] * vImg1Gray[i - 1, j - 1]);
-                        mask[7] = (byte)(mask[7] * vImg1Gray[i - 1, j]);
-                        mask[8] = (byte)(mask[8] * vImg1Gray[i - 1, j + 1]);
-                        mask[9] = (byte)(mask[9] * vImg1Gray[i - 1, j + 2]);
-
-                        mask[10] = (byte)(mask[10] * vImg1Gray[i, j - 2]);
-                        mask[11] = (byte)(mask[11] * vImg1Gray[i, j - 1]);
-                        mask[12] = (byte)(mask[12] * vImg1Gray[i, j]);
-                        mask[13] = (byte)(mask[13] * vImg1Gray[i, j + 1]);
-                        mask[14] = (byte)(mask[14] * vImg1Gray[i, j + 2]);
-
-                        mask[15] = (byte)(mask[15] * vImg1Gray[i + 1, j - 2]);
-                        mask[16] = (byte)(mask[16] * vImg1Gray[i + 1, j - 1]);
-                        mask[17] = (byte)(mask[17] * vImg1Gray[i + 1, j]);
-                        mask[18] = (byte)(mask[18] * vImg1Gray[i + 1, j + 1]);
-                        mask[19] = (byte)(mask[19] * vImg1Gray[i + 1, j + 2]);
-
-                        mask[20] = (byte)(mask[20] * vImg1Gray[i + 2, j - 2]);
-                        mask[21] = (byte)(mask[21] * vImg1Gray[i + 2, j - 1]);
-                        mask[22] = (byte)(mask[22] * vImg1Gray[i + 2, j]);
-                        mask[23] = (byte)(mask[23] * vImg1Gray[i + 2, j + 1]);
-                        mask[24] = (byte)(mask[24] * vImg1Gray[i + 2, j + 2]);
+                        mask = mask5x5(mask, vImg1Gray, i, j);
 
                         Array.Sort(mask);
 
@@ -1391,19 +1061,7 @@ namespace ProcessamentoDeImagens
                         byte[] mask = new byte[9];
                         int mediana = 0;
 
-                        for (int w = 0; w < mask.Length; w++) mask[w] = 1;
-
-                        mask[0] = (byte)(mask[0] * vImg1Gray[i - 1, j - 1]);
-                        mask[1] = (byte)(mask[1] * vImg1Gray[i - 1, j]);
-                        mask[2] = (byte)(mask[2] * vImg1Gray[i - 1, j + 1]);
-
-                        mask[3] = (byte)(mask[3] * vImg1Gray[i, j - 1]);
-                        mask[4] = (byte)(mask[4] * vImg1Gray[i, j]);
-                        mask[5] = (byte)(mask[5] * vImg1Gray[i, j + 1]);
-
-                        mask[6] = (byte)(mask[6] * vImg1Gray[i + 1, j - 1]);
-                        mask[7] = (byte)(mask[7] * vImg1Gray[i + 1, j]);
-                        mask[8] = (byte)(mask[8] * vImg1Gray[i + 1, j + 1]);
+                        mask = mask3x3(mask, vImg1Gray, i, j);
 
                         Array.Sort(mask);
 
@@ -1422,37 +1080,7 @@ namespace ProcessamentoDeImagens
                         byte[] mask = new byte[25];
                         int mediana = 0;
 
-                        for (int w = 0; w < mask.Length; w++) mask[w] = 1;
-
-                        mask[0] = (byte)(mask[0] * vImg1Gray[i - 2, j - 2]);
-                        mask[1] = (byte)(mask[1] * vImg1Gray[i - 2, j - 1]);
-                        mask[2] = (byte)(mask[2] * vImg1Gray[i - 2, j]);
-                        mask[3] = (byte)(mask[3] * vImg1Gray[i - 2, j + 1]);
-                        mask[4] = (byte)(mask[4] * vImg1Gray[i - 2, j + 2]);
-
-                        mask[5] = (byte)(mask[5] * vImg1Gray[i - 1, j - 2]);
-                        mask[6] = (byte)(mask[6] * vImg1Gray[i - 1, j - 1]);
-                        mask[7] = (byte)(mask[7] * vImg1Gray[i - 1, j]);
-                        mask[8] = (byte)(mask[8] * vImg1Gray[i - 1, j + 1]);
-                        mask[9] = (byte)(mask[9] * vImg1Gray[i - 1, j + 2]);
-
-                        mask[10] = (byte)(mask[10] * vImg1Gray[i, j - 2]);
-                        mask[11] = (byte)(mask[11] * vImg1Gray[i, j - 1]);
-                        mask[12] = (byte)(mask[12] * vImg1Gray[i, j]);
-                        mask[13] = (byte)(mask[13] * vImg1Gray[i, j + 1]);
-                        mask[14] = (byte)(mask[14] * vImg1Gray[i, j + 2]);
-
-                        mask[15] = (byte)(mask[15] * vImg1Gray[i + 1, j - 2]);
-                        mask[16] = (byte)(mask[16] * vImg1Gray[i + 1, j - 1]);
-                        mask[17] = (byte)(mask[17] * vImg1Gray[i + 1, j]);
-                        mask[18] = (byte)(mask[18] * vImg1Gray[i + 1, j + 1]);
-                        mask[19] = (byte)(mask[19] * vImg1Gray[i + 1, j + 2]);
-
-                        mask[20] = (byte)(mask[20] * vImg1Gray[i + 2, j - 2]);
-                        mask[21] = (byte)(mask[21] * vImg1Gray[i + 2, j - 1]);
-                        mask[22] = (byte)(mask[22] * vImg1Gray[i + 2, j]);
-                        mask[23] = (byte)(mask[23] * vImg1Gray[i + 2, j + 1]);
-                        mask[24] = (byte)(mask[24] * vImg1Gray[i + 2, j + 2]);
+                        mask = mask5x5(mask, vImg1Gray, i, j);
 
                         Array.Sort(mask);
 
@@ -1510,19 +1138,7 @@ namespace ProcessamentoDeImagens
                     {
                         byte[] mask = new byte[9];
 
-                        for (int w = 0; w < mask.Length; w++) mask[w] = 1;
-
-                        mask[0] = (byte)(mask[0] * vImg1Gray[i - 1, j - 1]);
-                        mask[1] = (byte)(mask[1] * vImg1Gray[i - 1, j]);
-                        mask[2] = (byte)(mask[2] * vImg1Gray[i - 1, j + 1]);
-
-                        mask[3] = (byte)(mask[3] * vImg1Gray[i, j - 1]);
-                        mask[4] = (byte)(mask[4] * vImg1Gray[i, j]);
-                        mask[5] = (byte)(mask[5] * vImg1Gray[i, j + 1]);
-
-                        mask[6] = (byte)(mask[6] * vImg1Gray[i + 1, j - 1]);
-                        mask[7] = (byte)(mask[7] * vImg1Gray[i + 1, j]);
-                        mask[8] = (byte)(mask[8] * vImg1Gray[i + 1, j + 1]);
+                        mask = mask3x3(mask, vImg1Gray, i, j);
 
                         int selected = mask[4];
 
@@ -1551,37 +1167,7 @@ namespace ProcessamentoDeImagens
                     {
                         byte[] mask = new byte[25];
 
-                        for (int w = 0; w < mask.Length; w++) mask[w] = 1;
-
-                        mask[0] = (byte)(mask[0] * vImg1Gray[i - 2, j - 2]);
-                        mask[1] = (byte)(mask[1] * vImg1Gray[i - 2, j - 1]);
-                        mask[2] = (byte)(mask[2] * vImg1Gray[i - 2, j]);
-                        mask[3] = (byte)(mask[3] * vImg1Gray[i - 2, j + 1]);
-                        mask[4] = (byte)(mask[4] * vImg1Gray[i - 2, j + 2]);
-
-                        mask[5] = (byte)(mask[5] * vImg1Gray[i - 1, j - 2]);
-                        mask[6] = (byte)(mask[6] * vImg1Gray[i - 1, j - 1]);
-                        mask[7] = (byte)(mask[7] * vImg1Gray[i - 1, j]);
-                        mask[8] = (byte)(mask[8] * vImg1Gray[i - 1, j + 1]);
-                        mask[9] = (byte)(mask[9] * vImg1Gray[i - 1, j + 2]);
-
-                        mask[10] = (byte)(mask[10] * vImg1Gray[i, j - 2]);
-                        mask[11] = (byte)(mask[11] * vImg1Gray[i, j - 1]);
-                        mask[12] = (byte)(mask[12] * vImg1Gray[i, j]);
-                        mask[13] = (byte)(mask[13] * vImg1Gray[i, j + 1]);
-                        mask[14] = (byte)(mask[14] * vImg1Gray[i, j + 2]);
-
-                        mask[15] = (byte)(mask[15] * vImg1Gray[i + 1, j - 2]);
-                        mask[16] = (byte)(mask[16] * vImg1Gray[i + 1, j - 1]);
-                        mask[17] = (byte)(mask[17] * vImg1Gray[i + 1, j]);
-                        mask[18] = (byte)(mask[18] * vImg1Gray[i + 1, j + 1]);
-                        mask[19] = (byte)(mask[19] * vImg1Gray[i + 1, j + 2]);
-
-                        mask[20] = (byte)(mask[20] * vImg1Gray[i + 2, j - 2]);
-                        mask[21] = (byte)(mask[21] * vImg1Gray[i + 2, j - 1]);
-                        mask[22] = (byte)(mask[22] * vImg1Gray[i + 2, j]);
-                        mask[23] = (byte)(mask[23] * vImg1Gray[i + 2, j + 1]);
-                        mask[24] = (byte)(mask[24] * vImg1Gray[i + 2, j + 2]);
+                        mask = mask5x5(mask, vImg1Gray, i, j);
 
                         int selected = mask[12];
 
@@ -1642,6 +1228,73 @@ namespace ProcessamentoDeImagens
                     img3.SetPixel(x, y, c);
                 }
             }
+            pictureBox3.Image = img3;
+        }
+
+        private void btGaussiano_Click(object sender, EventArgs e)
+        {
+            double desvioPadrao = Convert.ToDouble(txGaussiano.Text);
+            int tamanho = 5;
+            int raio = tamanho / 2;
+            double[,] kernel = new double[tamanho, tamanho];
+            double soma = 0;
+
+            // Gerar kernel gaussiano
+            for (int x = -raio; x <= raio; x++)
+            {
+                for (int y = -raio; y <= raio; y++)
+                {
+                    double valor = Math.Exp(-(x * x + y * y) / (2 * desvioPadrao * desvioPadrao));
+                    kernel[x + raio, y + raio] = valor;
+                    soma += valor;
+                }
+            }
+
+            // Normalizar kernel
+            for (int x = 0; x < tamanho; x++)
+            {
+                for (int y = 0; y < tamanho; y++)
+                {
+                    kernel[x, y] /= soma;
+                }
+            }
+
+            int width = img1.Width;
+            int height = img1.Height;
+
+            Bitmap img3 = new Bitmap(width, height);
+
+            for (int x = raio; x < width - raio; x++)
+            {
+                for (int y = raio; y < height - raio; y++)
+                {
+                    double r = 0, g = 0, b = 0;
+
+                    for (int i = -raio; i <= raio; i++)
+                    {
+                        for (int j = -raio; j <= raio; j++)
+                        {
+                            Color pixel = img1.GetPixel(x + i, y + j);
+                            double peso = kernel[i + raio, j + raio];
+                            r += pixel.R * peso;
+                            g += pixel.G * peso;
+                            b += pixel.B * peso;
+                        }
+                    }
+
+                    int red = (int)Math.Round(r);
+                    int green = (int)Math.Round(g);
+                    int blue = (int)Math.Round(b);
+
+                    red = Math.Max(0, Math.Min(255, red));
+                    green = Math.Max(0, Math.Min(255, green));
+                    blue = Math.Max(0, Math.Min(255, blue));
+
+                    Color newPixel = Color.FromArgb(red, green, blue);
+                    img3.SetPixel(x, y, newPixel);
+                }
+            }
+
             pictureBox3.Image = img3;
         }
 
@@ -1707,6 +1360,64 @@ namespace ProcessamentoDeImagens
 
             return mask;
         }
+
+        private byte[] mask5x5(byte[] mask, byte[,] vImgGray, int i, int j)
+        {
+            for (int w = 0; w < mask.Length; w++) mask[w] = 1;
+
+            mask[0] = (byte)(mask[0] * vImg1Gray[i - 2, j - 2]);
+            mask[1] = (byte)(mask[1] * vImg1Gray[i - 2, j - 1]);
+            mask[2] = (byte)(mask[2] * vImg1Gray[i - 2, j]);
+            mask[3] = (byte)(mask[3] * vImg1Gray[i - 2, j + 1]);
+            mask[4] = (byte)(mask[4] * vImg1Gray[i - 2, j + 2]);
+
+            mask[5] = (byte)(mask[5] * vImg1Gray[i - 1, j - 2]);
+            mask[6] = (byte)(mask[6] * vImg1Gray[i - 1, j - 1]);
+            mask[7] = (byte)(mask[7] * vImg1Gray[i - 1, j]);
+            mask[8] = (byte)(mask[8] * vImg1Gray[i - 1, j + 1]);
+            mask[9] = (byte)(mask[9] * vImg1Gray[i - 1, j + 2]);
+
+            mask[10] = (byte)(mask[10] * vImg1Gray[i, j - 2]);
+            mask[11] = (byte)(mask[11] * vImg1Gray[i, j - 1]);
+            mask[12] = (byte)(mask[12] * vImg1Gray[i, j]);
+            mask[13] = (byte)(mask[13] * vImg1Gray[i, j + 1]);
+            mask[14] = (byte)(mask[14] * vImg1Gray[i, j + 2]);
+
+            mask[15] = (byte)(mask[15] * vImg1Gray[i + 1, j - 2]);
+            mask[16] = (byte)(mask[16] * vImg1Gray[i + 1, j - 1]);
+            mask[17] = (byte)(mask[17] * vImg1Gray[i + 1, j]);
+            mask[18] = (byte)(mask[18] * vImg1Gray[i + 1, j + 1]);
+            mask[19] = (byte)(mask[19] * vImg1Gray[i + 1, j + 2]);
+
+            mask[20] = (byte)(mask[20] * vImg1Gray[i + 2, j - 2]);
+            mask[21] = (byte)(mask[21] * vImg1Gray[i + 2, j - 1]);
+            mask[22] = (byte)(mask[22] * vImg1Gray[i + 2, j]);
+            mask[23] = (byte)(mask[23] * vImg1Gray[i + 2, j + 1]);
+            mask[24] = (byte)(mask[24] * vImg1Gray[i + 2, j + 2]);
+
+            return mask;
+        }
+
+        private byte[] mask3x3(byte[] mask, byte[,] vImgGray, int i, int j)
+        {
+            for (int w = 0; w < mask.Length; w++) mask[w] = 1;
+
+            mask[0] = (byte)(mask[0] * vImg1Gray[i - 1, j - 1]);
+            mask[1] = (byte)(mask[1] * vImg1Gray[i - 1, j]);
+            mask[2] = (byte)(mask[2] * vImg1Gray[i - 1, j + 1]);
+
+            mask[3] = (byte)(mask[3] * vImg1Gray[i, j - 1]);
+            mask[4] = (byte)(mask[4] * vImg1Gray[i, j]);
+            mask[5] = (byte)(mask[5] * vImg1Gray[i, j + 1]);
+
+            mask[6] = (byte)(mask[6] * vImg1Gray[i + 1, j - 1]);
+            mask[7] = (byte)(mask[7] * vImg1Gray[i + 1, j]);
+            mask[8] = (byte)(mask[8] * vImg1Gray[i + 1, j + 1]);
+
+            return mask;
+        }
+
+        
     }
 
 }

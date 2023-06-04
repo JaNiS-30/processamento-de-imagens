@@ -57,24 +57,12 @@
             this.btXOR = new System.Windows.Forms.Button();
             this.btOR = new System.Windows.Forms.Button();
             this.btAND = new System.Windows.Forms.Button();
-            this.btExer9 = new System.Windows.Forms.Button();
-            this.brExer7 = new System.Windows.Forms.Button();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.RGBtoOneBit = new System.Windows.Forms.Button();
             this.RGBtoEigthBit = new System.Windows.Forms.Button();
             this.btEqualHist = new System.Windows.Forms.Button();
             this.ToNeg = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.btSuavizacao = new System.Windows.Forms.Button();
             this.numOrdem = new System.Windows.Forms.NumericUpDown();
             this.btOrdem = new System.Windows.Forms.Button();
             this.btMediana = new System.Windows.Forms.Button();
@@ -86,7 +74,8 @@
             this.btMax = new System.Windows.Forms.Button();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.btSuavizacao = new System.Windows.Forms.Button();
+            this.btGaussiano = new System.Windows.Forms.Button();
+            this.txGaussiano = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -95,7 +84,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
-            this.groupBox6.SuspendLayout();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numOrdem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
@@ -330,133 +318,9 @@
             this.btAND.UseVisualStyleBackColor = true;
             this.btAND.Click += new System.EventHandler(this.btAND_Click);
             // 
-            // btExer9
-            // 
-            this.btExer9.Location = new System.Drawing.Point(29, 265);
-            this.btExer9.Name = "btExer9";
-            this.btExer9.Size = new System.Drawing.Size(75, 23);
-            this.btExer9.TabIndex = 9;
-            this.btExer9.Text = "Exer9";
-            this.btExer9.UseVisualStyleBackColor = true;
-            this.btExer9.Click += new System.EventHandler(this.btExer9_Click);
-            // 
-            // brExer7
-            // 
-            this.brExer7.Location = new System.Drawing.Point(14, 351);
-            this.brExer7.Name = "brExer7";
-            this.brExer7.Size = new System.Drawing.Size(75, 23);
-            this.brExer7.TabIndex = 10;
-            this.brExer7.Text = "Exer7";
-            this.brExer7.UseVisualStyleBackColor = true;
-            this.brExer7.Click += new System.EventHandler(this.brExer7_Click);
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.label10);
-            this.groupBox6.Controls.Add(this.label9);
-            this.groupBox6.Controls.Add(this.label8);
-            this.groupBox6.Controls.Add(this.label7);
-            this.groupBox6.Controls.Add(this.label6);
-            this.groupBox6.Controls.Add(this.label5);
-            this.groupBox6.Controls.Add(this.label4);
-            this.groupBox6.Controls.Add(this.label3);
-            this.groupBox6.Controls.Add(this.label2);
-            this.groupBox6.Controls.Add(this.label1);
-            this.groupBox6.Location = new System.Drawing.Point(14, 380);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(357, 230);
-            this.groupBox6.TabIndex = 11;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Exer7";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(242, 16);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(53, 13);
-            this.label10.TabIndex = 9;
-            this.label10.Text = "Entrada 2";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(37, 16);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(53, 13);
-            this.label9.TabIndex = 8;
-            this.label9.Text = "Entrada 1";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(263, 136);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(71, 13);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "Normalização";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(132, 136);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(70, 13);
-            this.label7.TabIndex = 6;
-            this.label7.Text = "Truncamento";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 136);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(67, 13);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Intermediario";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(276, 163);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(0, 13);
-            this.label5.TabIndex = 4;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(146, 163);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(0, 13);
-            this.label4.TabIndex = 3;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 163);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(0, 13);
-            this.label3.TabIndex = 2;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(253, 31);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(0, 13);
-            this.label2.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(43, 31);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 13);
-            this.label1.TabIndex = 0;
-            // 
             // RGBtoOneBit
             // 
-            this.RGBtoOneBit.Location = new System.Drawing.Point(120, 265);
+            this.RGBtoOneBit.Location = new System.Drawing.Point(25, 265);
             this.RGBtoOneBit.Name = "RGBtoOneBit";
             this.RGBtoOneBit.Size = new System.Drawing.Size(75, 23);
             this.RGBtoOneBit.TabIndex = 12;
@@ -466,7 +330,7 @@
             // 
             // RGBtoEigthBit
             // 
-            this.RGBtoEigthBit.Location = new System.Drawing.Point(120, 295);
+            this.RGBtoEigthBit.Location = new System.Drawing.Point(25, 294);
             this.RGBtoEigthBit.Name = "RGBtoEigthBit";
             this.RGBtoEigthBit.Size = new System.Drawing.Size(75, 23);
             this.RGBtoEigthBit.TabIndex = 13;
@@ -476,7 +340,7 @@
             // 
             // btEqualHist
             // 
-            this.btEqualHist.Location = new System.Drawing.Point(605, 468);
+            this.btEqualHist.Location = new System.Drawing.Point(259, 470);
             this.btEqualHist.Name = "btEqualHist";
             this.btEqualHist.Size = new System.Drawing.Size(73, 61);
             this.btEqualHist.TabIndex = 8;
@@ -486,7 +350,7 @@
             // 
             // ToNeg
             // 
-            this.ToNeg.Location = new System.Drawing.Point(120, 327);
+            this.ToNeg.Location = new System.Drawing.Point(25, 323);
             this.ToNeg.Name = "ToNeg";
             this.ToNeg.Size = new System.Drawing.Size(75, 23);
             this.ToNeg.TabIndex = 14;
@@ -496,6 +360,8 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.txGaussiano);
+            this.groupBox7.Controls.Add(this.btGaussiano);
             this.groupBox7.Controls.Add(this.btSuavizacao);
             this.groupBox7.Controls.Add(this.numOrdem);
             this.groupBox7.Controls.Add(this.btOrdem);
@@ -508,14 +374,24 @@
             this.groupBox7.Controls.Add(this.btMax);
             this.groupBox7.Location = new System.Drawing.Point(804, 265);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(229, 133);
+            this.groupBox7.Size = new System.Drawing.Size(229, 162);
             this.groupBox7.TabIndex = 10;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Realce de Imagens";
             // 
+            // btSuavizacao
+            // 
+            this.btSuavizacao.Location = new System.Drawing.Point(108, 77);
+            this.btSuavizacao.Name = "btSuavizacao";
+            this.btSuavizacao.Size = new System.Drawing.Size(95, 23);
+            this.btSuavizacao.TabIndex = 15;
+            this.btSuavizacao.Text = "SUAVIZAÇÃO";
+            this.btSuavizacao.UseVisualStyleBackColor = true;
+            this.btSuavizacao.Click += new System.EventHandler(this.btSuavizacao_Click);
+            // 
             // numOrdem
             // 
-            this.numOrdem.Location = new System.Drawing.Point(186, 48);
+            this.numOrdem.Location = new System.Drawing.Point(186, 51);
             this.numOrdem.Name = "numOrdem";
             this.numOrdem.Size = new System.Drawing.Size(36, 20);
             this.numOrdem.TabIndex = 14;
@@ -543,7 +419,7 @@
             // rb7x7
             // 
             this.rb7x7.AutoSize = true;
-            this.rb7x7.Location = new System.Drawing.Point(181, 108);
+            this.rb7x7.Location = new System.Drawing.Point(181, 139);
             this.rb7x7.Name = "rb7x7";
             this.rb7x7.Size = new System.Drawing.Size(48, 17);
             this.rb7x7.TabIndex = 11;
@@ -553,7 +429,7 @@
             // rb5x5
             // 
             this.rb5x5.AutoSize = true;
-            this.rb5x5.Location = new System.Drawing.Point(132, 108);
+            this.rb5x5.Location = new System.Drawing.Point(132, 139);
             this.rb5x5.Name = "rb5x5";
             this.rb5x5.Size = new System.Drawing.Size(48, 17);
             this.rb5x5.TabIndex = 10;
@@ -564,7 +440,7 @@
             // 
             this.rb3x3.AutoSize = true;
             this.rb3x3.Checked = true;
-            this.rb3x3.Location = new System.Drawing.Point(78, 108);
+            this.rb3x3.Location = new System.Drawing.Point(78, 139);
             this.rb3x3.Name = "rb3x3";
             this.rb3x3.Size = new System.Drawing.Size(48, 17);
             this.rb3x3.TabIndex = 9;
@@ -608,7 +484,7 @@
             this.chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(377, 396);
+            this.chart1.Location = new System.Drawing.Point(25, 405);
             this.chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
@@ -624,7 +500,7 @@
             this.chart2.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
             this.chart2.Legends.Add(legend2);
-            this.chart2.Location = new System.Drawing.Point(714, 396);
+            this.chart2.Location = new System.Drawing.Point(350, 405);
             this.chart2.Name = "chart2";
             series2.ChartArea = "ChartArea1";
             series2.Legend = "Legend1";
@@ -634,15 +510,22 @@
             this.chart2.TabIndex = 16;
             this.chart2.Text = "chart2";
             // 
-            // btSuavizacao
+            // btGaussiano
             // 
-            this.btSuavizacao.Location = new System.Drawing.Point(108, 77);
-            this.btSuavizacao.Name = "btSuavizacao";
-            this.btSuavizacao.Size = new System.Drawing.Size(95, 23);
-            this.btSuavizacao.TabIndex = 15;
-            this.btSuavizacao.Text = "SUAVIZAÇÃO";
-            this.btSuavizacao.UseVisualStyleBackColor = true;
-            this.btSuavizacao.Click += new System.EventHandler(this.btSuavizacao_Click);
+            this.btGaussiano.Location = new System.Drawing.Point(108, 106);
+            this.btGaussiano.Name = "btGaussiano";
+            this.btGaussiano.Size = new System.Drawing.Size(72, 23);
+            this.btGaussiano.TabIndex = 16;
+            this.btGaussiano.Text = "GAUSSIAN";
+            this.btGaussiano.UseVisualStyleBackColor = true;
+            this.btGaussiano.Click += new System.EventHandler(this.btGaussiano_Click);
+            // 
+            // txGaussiano
+            // 
+            this.txGaussiano.Location = new System.Drawing.Point(186, 108);
+            this.txGaussiano.Name = "txGaussiano";
+            this.txGaussiano.Size = new System.Drawing.Size(36, 20);
+            this.txGaussiano.TabIndex = 17;
             // 
             // Form1
             // 
@@ -656,9 +539,6 @@
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.RGBtoEigthBit);
             this.Controls.Add(this.RGBtoOneBit);
-            this.Controls.Add(this.groupBox6);
-            this.Controls.Add(this.brExer7);
-            this.Controls.Add(this.btExer9);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -677,8 +557,6 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numOrdem)).EndInit();
@@ -713,19 +591,6 @@
         private System.Windows.Forms.Button btOR;
         private System.Windows.Forms.Button btAND;
         private System.Windows.Forms.TextBox txBlending;
-        private System.Windows.Forms.Button btExer9;
-        private System.Windows.Forms.Button brExer7;
-        private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button RGBtoOneBit;
         private System.Windows.Forms.Button RGBtoEigthBit;
         private System.Windows.Forms.Button btEqualHist;
@@ -743,6 +608,8 @@
         private System.Windows.Forms.NumericUpDown numOrdem;
         private System.Windows.Forms.Button btOrdem;
         private System.Windows.Forms.Button btSuavizacao;
+        private System.Windows.Forms.TextBox txGaussiano;
+        private System.Windows.Forms.Button btGaussiano;
     }
 }
 
