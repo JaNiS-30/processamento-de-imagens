@@ -368,16 +368,19 @@ namespace ProcessamentoDeImagens
 
             imagem3 = new byte[img2.Width, img2.Height];
 
-            byte C = Convert.ToByte(txBlending.Text);
+            float C = Convert.ToSingle(txBlending.Text);
 
             for (int i = 0; i < img2.Width; i++)
             {
                 for (int j = 0; j < img2.Height; j++)
                 {
+                    int Ipixel = (int)(C * vImg1Gray[i, j] + (1 - C) * vImg2Gray[i, j]);
                     byte pixel;
 
-                    pixel = Convert.ToByte(C * vImg1Gray[i, j] + (1-C) * vImg2Gray[i, j]);
-
+                    if (Ipixel > 255) pixel = 255;
+                    else if (Ipixel < 0) pixel = 0;
+                    else pixel = (byte)Ipixel;
+                    
                     imagem3[i, j] = pixel;
                 }
             }
