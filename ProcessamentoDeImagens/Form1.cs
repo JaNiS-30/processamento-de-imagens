@@ -157,12 +157,8 @@ namespace ProcessamentoDeImagens
 
         private void btAdc_Click(object sender, EventArgs e)
         {
-            if(img1.Width != img2.Width || img1.Height != img2.Height || img1.PixelFormat != img1.PixelFormat)
+            if (CheckImages(img1, img2))
             {
-                MessageBox.Show("As imagens precisam ter o mesmo tamanho e formato");
-                return;
-            }
-
             byte [,] imagem3;
 
             imagem3 = new byte[img2.Width, img2.Height];
@@ -193,6 +189,9 @@ namespace ProcessamentoDeImagens
             }
 
             pictureBox3.Image = img3;
+
+            }
+            else { pictureBox3.Image = null; }
 
         }
 
@@ -1420,7 +1419,23 @@ namespace ProcessamentoDeImagens
             return mask;
         }
 
-        
+        public bool CheckImages(Bitmap img1 = null, Bitmap img2 = null)
+        {
+            if (img1 == null || img2 == null)
+            {
+                MessageBox.Show("Imagens VAZIAS!");
+                return false;
+            }
+
+            if (img1.Width != img2.Width || img1.Height != img2.Height || img1.PixelFormat != img1.PixelFormat)
+            {
+                MessageBox.Show("As imagens precisam ter o mesmo tamanho e formato");
+                return false;
+            }
+
+            return true;
+        }
+
     }
 
 }
